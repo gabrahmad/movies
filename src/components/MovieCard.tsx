@@ -57,9 +57,9 @@ function MovieCard({ movie }) {
 
         <div className="movie_stats">
           <p>
-            {movie.release_date ? movie.release_date : movie.first_air_date}
+            Release Date : {movie.release_date ? movie.release_date : movie.first_air_date}
           </p>
-          <p>{movie.vote_average}</p>
+          <p>Rating : {movie.vote_average}</p>
         </div>
       </div>
     </div>

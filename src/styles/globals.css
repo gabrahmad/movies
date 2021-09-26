@@ -82,10 +82,25 @@ body {
   align-items: center;
 }
 .movie__overview {
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 .movie__favorite{
   color:yellow;
+}
+.movies__sort{
+  display: flex;
+  margin:1rem auto;
+  justify-content: center;
+  color:white;
+  
+  align-items:center;
+}
+.movies__sort select{
+  margin-left:1rem;
+  background:white;
+  width:5rem;
+  border-radius:5px;
+  padding:0.3rem 1rem;
 }
 @media only screen and (min-width: 1024px) {
   .movie_cards {
