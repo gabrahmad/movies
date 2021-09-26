@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../app/hooks";
+import { addFavorite  , removeFavorite} from "../features/movies/moviesSlice";
 function MovieCard({ movie }) {
   const base_url = "https://image.tmdb.org/t/p/original";
-  console.log(movie);
+  const dispatch = useAppDispatch();
+  const favoriteMovies = useSelector(
+    (state: any) => state.movies.favoriteMovies
+  );
+
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  const handleFavorite = () => {
+    if (favoriteMovies.length > 0) {
+      favoriteMovies.map((m: any) => {
+        
+        if (m.id == movie.id) {
+          dispatch(removeFavorite(movie));
+          setIsFavorite(false);
+        } else {
+          dispatch(addFavorite(movie));
+          setIsFavorite(true);
+        }
+      });
+    } else {
+      dispatch(addFavorite(movie));
+      setIsFavorite(true);
+    }
+  };
 
   return (
     <div className="movie__card">
@@ -20,7 +46,10 @@ function MovieCard({ movie }) {
           <h3 className="movie__title">
             <span>{movie.title ? movie.title : movie.name}</span>
             <span>
-              <FaStar />
+              <FaStar
+                onClick={handleFavorite}
+                className={`${isFavorite ? "movie__favorite" : "movie__star"} `}
+              />
             </span>
           </h3>
           <p className="movie__overview">{movie.overview}</p>
