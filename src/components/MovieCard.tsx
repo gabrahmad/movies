@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../app/hooks";
-import { addFavorite  , removeFavorite} from "../features/movies/moviesSlice";
-function MovieCard({ movie }) {
+import { Movie } from "../iterfaces";
+
+import { addFavorite, removeFavorite } from "../features/movies/moviesSlice";
+function MovieCard({ movie }: { movie: Movie }) {
   const base_url = "https://image.tmdb.org/t/p/original";
   const dispatch = useAppDispatch();
   const favoriteMovies = useSelector(
@@ -15,7 +17,6 @@ function MovieCard({ movie }) {
   const handleFavorite = () => {
     if (favoriteMovies.length > 0) {
       favoriteMovies.map((m: any) => {
-        
         if (m.id == movie.id) {
           dispatch(removeFavorite(movie));
           setIsFavorite(false);
@@ -57,7 +58,8 @@ function MovieCard({ movie }) {
 
         <div className="movie_stats">
           <p>
-            Release Date : {movie.release_date ? movie.release_date : movie.first_air_date}
+            Release Date :{" "}
+            {movie.release_date ? movie.release_date : movie.first_air_date}
           </p>
           <p>Rating : {movie.vote_average}</p>
         </div>

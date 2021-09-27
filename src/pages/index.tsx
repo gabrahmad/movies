@@ -13,7 +13,6 @@ const IndexPage: NextPage = () => {
   const dispatch = useAppDispatch();
 
   const API_KEY = process.env.NEXT_PUBLIC_API_KEY
-  console.log(API_KEY,'key')
   const URL:string = `/movie/top_rated?api_key=${API_KEY}&language=en-US`
 
   useEffect(() => {

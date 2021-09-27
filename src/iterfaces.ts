@@ -5,7 +5,8 @@ export interface Movie{
     overview: string;
     release_date: string;
     vote_average: number;
-  
+    first_air_date:string;
+    name:string;
   }
 
   export interface MoviesState {
