@@ -7,9 +7,8 @@ import requests from "../../components/requests";
 
 export const getMoviesAsync = createAsyncThunk(
   "movies/getMoviesAsync",
-  async () => {
-    const response = await axios.get(requests.fetchTrending);
-    console.log(response);
+  async (url:string) => {
+    const response = await axios.get(url);
     return response.data.results;
   }
 );
@@ -33,9 +32,9 @@ export const moviesSlice = createSlice({
     changeSorting: (state, action: PayloadAction<string>) => {
       state.sorting = action.payload;
       if (state.sorting === "DESC") {
-        state.movies = _.orderBy(state.movies, ["id"], ["desc"]);
+        state.movies = _.orderBy(state.movies, ["vote_average"], ["desc"]);
       } else {
-        state.movies = _.orderBy(state.movies, ["id"], ["asc"]);
+        state.movies = _.orderBy(state.movies, ["vote_average"], ["asc"]);
       }
     },
   },
@@ -52,3 +51,4 @@ export const moviesSlice = createSlice({
 // export const moviesSlice = createSlice(options);
 export const { addFavorite, removeFavorite, changeSorting } =
   moviesSlice.actions;
+

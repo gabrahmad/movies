@@ -4,15 +4,20 @@ import { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
 import { useDispatch, useSelector } from "react-redux";
 import { changeSorting, getMoviesAsync } from "../features/movies/moviesSlice";
-import { useAppDispatch } from "../app/hooks";
+import { useAppDispatch, useAppSelector } from "../app/hooks";
+import { MoviesState } from "../iterfaces";
 
 const IndexPage: NextPage = () => {
-  const movies = useSelector((state: any) => state.movies.movies);
-  const sorting = useSelector((state: any) => state.movies.sorting);
+  const movies = useAppSelector(state => state.movies.movies);
+  const sorting = useAppSelector(state => state.movies.sorting);
   const dispatch = useAppDispatch();
 
+  const API_KEY = process.env.NEXT_PUBLIC_API_KEY
+  console.log(API_KEY,'key')
+  const URL:string = `/movie/top_rated?api_key=${API_KEY}&language=en-US`
+
   useEffect(() => {
-    dispatch(getMoviesAsync());
+    dispatch(getMoviesAsync(URL));
   }, []);
 
   return (
@@ -23,7 +28,7 @@ const IndexPage: NextPage = () => {
           <select
             name="sort"
             id="sort"
-            onChange={(e:any) => dispatch(changeSorting(e.target.value))}
+            onChange={(e) => dispatch(changeSorting(e.target.value))}
             value={sorting}
           >
             <option value="ASC">ASC</option>
@@ -41,3 +46,4 @@ const IndexPage: NextPage = () => {
 };
 
 export default IndexPage;
+
